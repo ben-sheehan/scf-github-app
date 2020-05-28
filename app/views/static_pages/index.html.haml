@@ -8,6 +8,9 @@
       = f.label 'Repo'
       = f.text_field :repo
 
+      = f.label 'Event type'
+      = f.select :event_type, event_type_options
+
       = f.submit 'Search'
 
 %div
@@ -23,10 +26,14 @@
 
       [data, status, xhr] = event.detail
 
-      $('#events-table').append('<tr><th>Event type</th><th>Actor</th><th>Created at</th></tr>');
-      data.events.forEach(function(ghEvent) {
-        $('#events-table').append('<tr><td>' + ghEvent.type + '</td><td>' + ghEvent.actor + '</td><td>' + ghEvent.created_at + '</td></td>');
-      });
+      if(data.events.length > 0) {
+        $('#events-table').append('<tr><th>Event type</th><th>Actor</th><th>Created at</th></tr>');
+        data.events.forEach(function(ghEvent) {
+          $('#events-table').append('<tr><td>' + ghEvent.type + '</td><td>' + ghEvent.actor + '</td><td>' + ghEvent.created_at + '</td></td>');
+        });
+      } else {
+        $('#events-table').append('<tr><th>No matching events</th>');
+      }
     }).on('ajax:error', function() {
       $('#owner').val('');
       $('#repo').val('');

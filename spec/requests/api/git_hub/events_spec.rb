@@ -5,13 +5,14 @@ RSpec.describe 'GitHub::Events endpoints', type: :request do
     let(:params) do
       {
         owner: 'rails',
-        repo: 'rails'
+        repo: 'rails',
+        event_type: 'IssueCommentEvent'
       }
     end
 
     subject do
       VCR.use_cassette('api_git_hub_events_index', record: :new_episodes) do
-        get '/api/git_hub/events', params: params
+        get '/api/git_hub/events', params: params, as: :json
       end
     end
 
@@ -38,7 +39,8 @@ RSpec.describe 'GitHub::Events endpoints', type: :request do
       let(:params) do
         {
           owner: 'fake_does_not_exist',
-          repo: 'really_so_fake'
+          repo: 'really_so_fake',
+          event_type: 'IssueCommentEvent'
         }
       end
 

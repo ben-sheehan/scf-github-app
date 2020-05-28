@@ -9,7 +9,8 @@ module Api
       def safe_params
         params.permit(
           :owner,
-          :repo
+          :repo,
+          :event_type
         )
       end
 

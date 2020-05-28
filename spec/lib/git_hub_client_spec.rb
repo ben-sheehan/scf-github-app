@@ -4,7 +4,11 @@ RSpec.describe GitHubClient do
   describe '::get_events' do
     subject do
       VCR.use_cassette('git_hub_client_get_events') do
-        GitHubClient.get_events(owner: 'rails', repo: 'rails')
+        GitHubClient.get_events(
+          owner: 'rails',
+          repo: 'rails',
+          event_type: 'IssueCommentEvent'
+        )
       end
     end
 
@@ -23,7 +27,11 @@ RSpec.describe GitHubClient do
     context 'when repo does not exist' do
       subject do
         VCR.use_cassette('git_hub_client_get_events_fail') do
-          GitHubClient.get_events(owner: 'soo_soo_fake', repo: 'very_fake')
+          GitHubClient.get_events(
+            owner: 'soo_soo_fake',
+            repo: 'very_fake',
+            event_type: 'IssueCommentEvent'
+          )
         end
       end
 

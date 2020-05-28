@@ -3,11 +3,12 @@ module GitHubClient
 
   BASE_URL = 'https://api.github.com/repos/'
 
-  def get_events(owner:, repo:)
+  def get_events(owner:, repo:, event_type:)
     response = HTTParty.get("#{BASE_URL}#{owner}/#{repo}/events")
     parsed_response = JSON.parse(response.body)
     if parsed_response.is_a?(Array)
-      { events: build_events(response) }
+      selected_events = response.select { |event| event['type'] == event_type }
+      { events: build_events(selected_events) }
     else
       { error: parsed_response['message'] }
     end
