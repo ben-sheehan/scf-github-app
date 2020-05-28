@@ -1,0 +1,10 @@
+/* Just to make things palatable */
+
+table {
+	margin-top: 20px;
+	width: 60%;
+}
+
+th {
+	text-align: left;
+}

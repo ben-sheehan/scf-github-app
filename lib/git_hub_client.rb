@@ -18,8 +18,8 @@ module GitHubClient
     response.map do |event|
       Hashie::Mash.new(
         type: event['type'],
-        actor: event['actor'],
-        created_at: event['created_at']
+        actor: event['actor']['display_login'],
+        created_at: Time.new(event['created_at']).strftime('%A, %b %d')
       )
     end
   end

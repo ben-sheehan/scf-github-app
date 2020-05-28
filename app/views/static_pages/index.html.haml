@@ -1,0 +1,37 @@
+%div
+  %h2 GitHub Repo Events
+  %div#form-wrapper
+    = form_with url: api_git_hub_events_path, method: :get do |f|
+      = f.label 'Owner'
+      = f.text_field :owner
+
+      = f.label 'Repo'
+      = f.text_field :repo
+
+      = f.submit 'Search'
+
+%div
+  %table#events-table
+
+
+:javascript
+  $(document).ready(function() {
+    $('#form-wrapper').on('ajax:success', function(event) {
+      $('#owner').val('');
+      $('#repo').val('');
+      $('#events-table tr').remove();
+
+      [data, status, xhr] = event.detail
+
+      $('#events-table').append('<tr><th>Event type</th><th>Actor</th><th>Created at</th></tr>');
+      data.events.forEach(function(ghEvent) {
+        $('#events-table').append('<tr><td>' + ghEvent.type + '</td><td>' + ghEvent.actor + '</td><td>' + ghEvent.created_at + '</td></td>');
+      });
+    }).on('ajax:error', function() {
+      $('#owner').val('');
+      $('#repo').val('');
+      $('#events-table tr').remove();
+
+      $('#events-table').append('<tr><th>Repo not found</th></tr>');
+    });
+  });

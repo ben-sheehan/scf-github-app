@@ -30,6 +30,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'httparty', '~> 0.18.0'
 gem 'hashie', '~> 4.1.0'
+gem 'haml', '~> 5.1'
 
 group :development, :test do
   gem 'rspec-rails', '~> 4.0.1'
