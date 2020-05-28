@@ -2,8 +2,7 @@ module Api
   module GitHub
     class EventsController < ApiController
       def index
-        resources = GitHubService::Events::Index.call(**service_opts)
-        render json: resources, status: :ok
+        @resources = GitHubService::Events::Index.call(**service_opts)
       end
 
       private

@@ -7,9 +7,20 @@ module GitHubClient
     response = HTTParty.get("#{BASE_URL}#{owner}/#{repo}/events")
     parsed_response = JSON.parse(response.body)
     if parsed_response.is_a?(Array)
-      { events: parsed_response.map(&:with_indifferent_access) }
+      { events: build_events(response) }
     else
       { error: parsed_response['message'] }
+    end
+  end
+
+  private
+  def build_events(response)
+    response.map do |event|
+      Hashie::Mash.new(
+        type: event['type'],
+        actor: event['actor'],
+        created_at: event['created_at']
+      )
     end
   end
 end
