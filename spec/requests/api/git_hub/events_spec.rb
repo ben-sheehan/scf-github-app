@@ -42,14 +42,14 @@ RSpec.describe 'GitHub::Events endpoints', type: :request do
         }
       end
 
-      it 'returns not_found status' do
+      it 'returns bad_request status' do
         subject
-        expect(response).to have_http_status :not_found
+        expect(response).to have_http_status :bad_request
       end
 
       it 'returns error message' do
         subject
-        expect(response_json['error']).to be_present
+        expect(response_json['error']).to eq 'Not Found'
       end
     end
   end

@@ -3,11 +3,7 @@ module Api
     class EventsController < ApiController
       def index
         resources = GitHubService::Events::Index.call(**service_opts)
-        if resources[:events].present?
-          render json: resources, status: :ok
-        else
-          render json: resources, status: :not_found
-        end
+        render json: resources, status: :ok
       end
 
       private

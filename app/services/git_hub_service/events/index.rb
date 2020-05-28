@@ -17,24 +17,25 @@ module GitHubService
 
       def call
         self.response = GitHubClient.get_events(owner: owner, repo: repo)
+        raise_error if response[:events].nil?
         build_json
       end
 
       private
+      def raise_error
+        raise StandardError, response[:error]
+      end
+
       def build_json
-        if response[:events].present?
-          {
-            events: response[:events].map do |event|
-              {
-                actor: event[:actor],
-                type: event[:type],
-                created_at: event[:created_at]
-              }
-            end
-          }
-        else
-          response
-        end
+        {
+          events: response[:events].map do |event|
+            {
+              actor: event[:actor],
+              type: event[:type],
+              created_at: event[:created_at]
+            }
+          end
+        }
       end
     end
   end

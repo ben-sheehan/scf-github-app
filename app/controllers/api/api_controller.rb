@@ -1,5 +1,9 @@
 module Api
   class ApiController < ApplicationController
-    # dummy for now, but will help with future API build-out
+    rescue_from StandardError, with: :render_error
+
+    def render_error(error)
+      render json: { error: error.message }, status: :bad_request
+    end
   end
 end
