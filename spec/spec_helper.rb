@@ -16,6 +16,7 @@
 
 require 'webmock/rspec'
 require 'vcr'
+require_relative 'support/request_helpers'
 
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_cassettes"
@@ -23,6 +24,7 @@ VCR.configure do |config|
 end
 
 RSpec.configure do |config|
+  config.include RequestHelpers, type: :request
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
