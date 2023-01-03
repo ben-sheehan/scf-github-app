@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-gem 'httparty', '~> 0.18.0'
+gem 'httparty', '~> 0.21.0'
 gem 'hashie', '~> 4.1.0'
 gem 'haml', '~> 5.1'
 
